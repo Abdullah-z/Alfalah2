@@ -34,7 +34,7 @@ export default function Nav() {
           </Text>
         </Block>
         <Block>
-          <Animated.View entering={SlideInRight.duration(500)}>
+          <Animated.View entering={SlideInRight.delay(50)}>
             <Block card marginVertical={sizes.xs}>
               <Block row>
                 <Block>
@@ -90,7 +90,7 @@ export default function Nav() {
               </Block>
             </Block>
           </Animated.View>
-          <Animated.View entering={SlideInRight.duration(550)}>
+          <Animated.View entering={SlideInRight.delay(100)}>
             <Block card marginVertical={sizes.xs}>
               <Block row>
                 <Block>
@@ -146,7 +146,7 @@ export default function Nav() {
               </Block>
             </Block>
           </Animated.View>
-          <Animated.View entering={SlideInRight.duration(600)}>
+          <Animated.View entering={SlideInRight.delay(150)}>
             <Block card marginVertical={sizes.xs}>
               <Block row>
                 <Block>
@@ -202,7 +202,7 @@ export default function Nav() {
               </Block>
             </Block>
           </Animated.View>
-          <Animated.View entering={SlideInRight.duration(650)}>
+          <Animated.View entering={SlideInRight.delay(200)}>
             <Block card marginVertical={sizes.xs}>
               <Block row>
                 <Block>

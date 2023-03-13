@@ -3,6 +3,7 @@ import {View, Text, FlatList} from 'react-native';
 import React, {useState} from 'react';
 import Collapsible from 'react-native-collapsible';
 import CollapseFAQ from '../components/CollapseFAQ';
+import Animated, {SlideInLeft, SlideInRight} from 'react-native-reanimated';
 
 export default function FAQ() {
   const [isCollapsed, setisCollapsed] = useState(true);
@@ -144,14 +145,20 @@ export default function FAQ() {
       detail: '\u2023 Front Page\n \u2023 Alfalah GHP Introduction\n \u2023',
     },
   ];
+  let delay = 50;
   return (
     <FlatList
       data={data}
-      renderItem={(index) => (
-        <CollapseFAQ
-          heading={index.item.heading}
-          detail={index.item.detail}></CollapseFAQ>
-      )}
+      renderItem={(index) => {
+        delay += 50;
+        return (
+          <Animated.View entering={SlideInRight.delay(delay)}>
+            <CollapseFAQ
+              heading={index.item.heading}
+              detail={index.item.detail}></CollapseFAQ>
+          </Animated.View>
+        );
+      }}
     />
   );
 }
