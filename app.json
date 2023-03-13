@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "rn-soft-ui-kit-free",
+    "slug": "rn-soft-ui-kit-free",
+    "description": "React Native - Soft UI Kit - Free",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos."
+        }
+      ]
+    ],
+    "primaryColor": "#CB0C9F",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/alfLogo.png",
+      "resizeMode": "center",
+      "backgroundColor": "#fff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch", "remote-notification"],
+        "UIRequiresFullScreen": true,
+        "NSMicrophoneUsageDescription": "Enable Alfalah to...microphone...",
+        "NSCameraUsageDescription": "Enable Alfalah to access camera ...",
+        "NSPhotoLibraryUsageDescription": "Enable Alfalah to access photos...",
+        "NSUserActivityTypes": ["INSendMessageIntent"],
+        "NSFaceIDUsageDescription": "Enable Alfalah to access Biometrics..."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#CB0C9F"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
