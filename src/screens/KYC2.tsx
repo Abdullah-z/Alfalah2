@@ -1,6 +1,6 @@
 import {View, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
-import {Text, Card, Block, Button} from '../components';
+import {Text, Card, Block} from '../components';
 import {useTheme} from '../hooks';
 import {useState} from 'react';
 import {
@@ -11,6 +11,7 @@ import {
   VStack,
   Input,
   Select,
+  Button,
   Radio,
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -39,6 +40,28 @@ export default function KYC2({navigation}) {
   const [taxResidence2, setTaxResidence2] = useState('');
   const [taxResidence3, setTaxResidence3] = useState('');
 
+  // Risk Profile Questionnaire
+  const [risk, setRisk] = useState(0);
+  const [risk1, setRisk1] = useState(0);
+  const [risk2, setRisk2] = useState(0);
+  const [risk3, setRisk3] = useState(0);
+  const [risk4, setRisk4] = useState([]);
+  const [risk5, setRisk5] = useState(0);
+  const [check, setCheck] = useState(0);
+
+  // console.log(risk + risk1 + risk2 + risk3 + risk4 + risk5);
+
+  console.log(
+    'value of Risk : ' +
+      risk +
+      risk1 +
+      risk2 +
+      risk3 +
+      '--' +
+      risk4 +
+      '--' +
+      risk5,
+  );
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -68,6 +91,12 @@ export default function KYC2({navigation}) {
       setImage(result.assets[0].uri);
     }
   };
+  console.log(
+    risk4.length > 0 ? (risk && risk1 && risk2 && risk3 && risk5) == 0 : true,
+  );
+
+  // console.log(risk4.length > 0);
+
   return (
     <ScrollView>
       <View style={{margin: sizes.sm}}>
@@ -220,7 +249,7 @@ export default function KYC2({navigation}) {
               </Button>
             </Block>
           </Block>
-        ) : step === 2 ? (
+        ) : step === 8 ? (
           <Block marginVertical={sizes.sm} card>
             <Text bold size={16}>
               Transaction Details
@@ -323,7 +352,7 @@ export default function KYC2({navigation}) {
                 <Radio value="one" onChange={setZakat} my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="two" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -339,7 +368,7 @@ export default function KYC2({navigation}) {
                 <Radio value="one" onChange={setZakat} my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="two" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -359,7 +388,7 @@ export default function KYC2({navigation}) {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -375,7 +404,7 @@ export default function KYC2({navigation}) {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -855,7 +884,7 @@ export default function KYC2({navigation}) {
                 label="Unable to obtain a TIN/Equivalent Number"
                 value="true"
               />
-              <Select.Item label="No TIN required" value="false" />
+              <Select.Item label="No TIN required" value="Other" />
             </Select>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
@@ -886,7 +915,7 @@ export default function KYC2({navigation}) {
                 label="Unable to obtain a TIN/Equivalent Number"
                 value="true"
               />
-              <Select.Item label="No TIN required" value="false" />
+              <Select.Item label="No TIN required" value="Other" />
             </Select>
             <FormControl.Label marginTop={sizes.xs} isRequired>
               IF REASON B SELECTED, PLEASE EXPLAIN WHY YOU ARE UNABLE TO OBTAIN
@@ -945,7 +974,7 @@ export default function KYC2({navigation}) {
                 label="Unable to obtain a TIN/Equivalent Number"
                 value="true"
               />
-              <Select.Item label="No TIN required" value="false" />
+              <Select.Item label="No TIN required" value="Other" />
             </Select>
             <FormControl.Label marginTop={sizes.xs} isRequired>
               IF REASON B SELECTED, PLEASE EXPLAIN WHY YOU ARE UNABLE TO OBTAIN
@@ -1004,7 +1033,7 @@ export default function KYC2({navigation}) {
                 label="Unable to obtain a TIN/Equivalent Number"
                 value="true"
               />
-              <Select.Item label="No TIN required" value="false" />
+              <Select.Item label="No TIN required" value="Other" />
             </Select>
             <FormControl.Label marginTop={sizes.xs} isRequired>
               IF REASON B SELECTED, PLEASE EXPLAIN WHY YOU ARE UNABLE TO OBTAIN
@@ -1036,95 +1065,148 @@ export default function KYC2({navigation}) {
               </Button>
             </Block>
           </Block>
-        ) : step === 8 ? (
+        ) : step === 2 ? (
           <Block marginVertical={sizes.sm} card>
             <Text bold size={16}>
-              Account Management Instructions
+              Risk Profiling Questionnaire
             </Text>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
-              INSTRUCTION TO OPERATE ACCOUNT
-            </FormControl.Label>
-            <Select
-              isDisabled
-              backgroundColor={'white'}
-              minWidth="120"
-              accessibilityLabel="Select State"
-              placeholder="Only the Principle Acount Holder"
-              _selectedItem={{
-                bg: 'teal.600',
-                endIcon: <CheckIcon size={5} />,
-              }}
-              mt="1">
-              <Select.Item label="Male" value="ux" />
-              <Select.Item label="Female" value="web" />
-            </Select>
-
-            <FormControl.Label marginTop={sizes.xs} isRequired>
-              CASH DIVIDEND:
+              AGE
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
-              <HStack>
-                <Radio value="one" onChange={setZakat} my={1}>
-                  Re-Invest
-                </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
-                  Provide Cash
-                </Radio>
-              </HStack>
-            </Radio.Group>
-
-            <FormControl.Label marginTop={sizes.xs} isRequired>
-              STOCK DIVIDEND:
-            </FormControl.Label>
-            <Radio.Group
-              name="myRadioGroup"
-              accessibilityLabel="favorite number">
-              <Radio value="one" onChange={setZakat} my={1}>
-                Issue Bonus Units
+              accessibilityLabel="favorite number"
+              value={risk.toString()}
+              onChange={(value) => {
+                setRisk(parseInt(value));
+              }}>
+              <Radio value={'1'} my={1}>
+                60 Above
               </Radio>
-              <Radio value="two" my={1}>
-                Encash Bonus Units
+              <Radio value={'2'} my={1}>
+                46-60
+              </Radio>
+              <Radio value={'3'} my={1}>
+                30-45
+              </Radio>
+              <Radio value={'4'} my={1}>
+                30 Below
               </Radio>
             </Radio.Group>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
-              DO YOU WISH TO RECEIVE STATEMENT OF ACCOUNTS?
+              WHAT IS YOUR INVESTMENT HORIZON?
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
-              <HStack>
-                <Radio value="one" onChange={setZakat} my={1}>
-                  Yes
-                </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
-                  No
-                </Radio>
-              </HStack>
+              accessibilityLabel="favorite number"
+              value={risk1.toString()}
+              onChange={(value) => {
+                setRisk1(parseInt(value));
+              }}>
+              <Radio value="1" my={1}>
+                Up To 6 Months
+              </Radio>
+              <Radio value="2" my={1}>
+                Up To 1 Year
+              </Radio>
+
+              <Radio value="3" my={1}>
+                Up To 3 Year
+              </Radio>
+              <Radio value="4" my={1}>
+                More Than 3 Years
+              </Radio>
             </Radio.Group>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
-              (IF YES, PLEASE SELECT THE NATURE OF MAIL)
+              DEFINE YOUR INVESTMENT KNOWLEDGE?
             </FormControl.Label>
-            <HStack>
-              <Checkbox onChange={setIsLifetimeExpiry}>Post</Checkbox>
-              <Checkbox marginLeft={sizes.sm} onChange={setIsLifetimeExpiry}>
-                Email
-              </Checkbox>
-            </HStack>
+            <Radio.Group
+              name="myRadioGroup"
+              accessibilityLabel="favorite number"
+              value={risk2.toString()}
+              onChange={(value) => {
+                setRisk2(parseInt(value));
+              }}>
+              <Radio value="1" my={1}>
+                None
+              </Radio>
+              <Radio value="2" my={1}>
+                Fresh/Basic
+              </Radio>
+
+              <Radio value="3" my={1}>
+                Well-Versed
+              </Radio>
+              <Radio value="4" my={1}>
+                Expert
+              </Radio>
+            </Radio.Group>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
-              FOR ALL OTHER CORRESPONDENCE:
+              WHAT IS YOUR RISK APPETITE?
             </FormControl.Label>
-            <HStack>
-              <Checkbox onChange={setIsLifetimeExpiry}>SMS</Checkbox>
-              <Checkbox marginLeft={sizes.sm} onChange={setIsLifetimeExpiry}>
-                Email
-              </Checkbox>
-            </HStack>
+            <Radio.Group
+              name="myRadioGroup"
+              accessibilityLabel="favorite number"
+              value={risk3.toString()}
+              onChange={(value) => {
+                setRisk3(parseInt(value));
+              }}>
+              <Radio value="1" my={1}>
+                Lower
+              </Radio>
+              <Radio value="2" my={1}>
+                Low
+              </Radio>
+
+              <Radio value="3" my={1}>
+                Moderate
+              </Radio>
+              <Radio value="4" my={1}>
+                High
+              </Radio>
+            </Radio.Group>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              HOW WILL YOU DEFINE YOUR INVESTMENT EXPERIENCE BY ASSET CLASSES?
+              (YOU MAY SELECT MULTIPLE)
+            </FormControl.Label>
+            <Checkbox.Group
+              onChange={(values) => {
+                setRisk4(values);
+              }}>
+              <Checkbox value={'1'}>Bank Deposits</Checkbox>
+              <Checkbox value={'2'}>Money Markets/ National Savings</Checkbox>
+              <Checkbox value={'3'}>Fixed Income/Debt</Checkbox>
+              <Checkbox value={'4'}>Equity/Forex/Commodity</Checkbox>
+            </Checkbox.Group>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              INVESTMENT OBJECTIVE
+            </FormControl.Label>
+            <Radio.Group
+              name="myRadioGroup"
+              accessibilityLabel="favorite number"
+              value={risk5.toString()}
+              onChange={(value) => {
+                setRisk5(parseInt(value));
+              }}>
+              <Radio value="1" my={1}>
+                Liquidity Management
+              </Radio>
+              <Radio value="2" my={1}>
+                Regular Income
+              </Radio>
+              <Radio value="3" my={1}>
+                Medium Term Capital Appreciation
+              </Radio>
+              <Radio value="4" my={1}>
+                Long Term Wealth Accumulation
+              </Radio>
+            </Radio.Group>
 
             <Block row justify="center">
               <Button
@@ -1136,19 +1218,36 @@ export default function KYC2({navigation}) {
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
               </Button>
+
               <Button
+                isDisabled={
+                  risk4.length > 0
+                    ? (risk && risk1 && risk2 && risk3 && risk5) == 0
+                    : true
+                }
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
                 primary
-                onPress={() => navigation.navigate('KYC2')}
+                onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
               </Button>
             </Block>
           </Block>
         ) : (
-          <></>
+          <>
+            <Text> Next SCREEN</Text>
+            <Button
+              width={'45%'}
+              marginHorizontal={sizes.xs}
+              marginTop={sizes.sm}
+              primary
+              onPress={() => setStep(step - 1)}
+              marginBottom={sizes.xs}>
+              <Text white>Back</Text>
+            </Button>
+          </>
         )}
       </View>
     </ScrollView>
