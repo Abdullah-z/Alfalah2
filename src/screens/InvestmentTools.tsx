@@ -14,7 +14,7 @@ export default function InvestmentTools() {
   return (
     <ScrollView style={{margin: sizes.sm}}>
       <Pressable onPress={() => navigation.navigate('Return Calculator')}>
-        <Animated.View entering={SlideInRight.duration(500)}>
+        <Animated.View entering={SlideInRight.delay(0)}>
           <Block card row marginBottom={sizes.sm}>
             <Block row align="center">
               <Icon
@@ -39,7 +39,7 @@ export default function InvestmentTools() {
         </Animated.View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('Tax Calculator')}>
-        <Animated.View entering={SlideInRight.duration(550)}>
+        <Animated.View entering={SlideInRight.delay(50)}>
           <Block card row marginBottom={sizes.sm}>
             <Block row align="center">
               <Icon
@@ -63,7 +63,7 @@ export default function InvestmentTools() {
           </Block>
         </Animated.View>
       </Pressable>
-      <Animated.View entering={SlideInRight.duration(600)}>
+      <Animated.View entering={SlideInRight.delay(100)}>
         <Block card row marginBottom={sizes.sm}>
           <Block row align="center">
             <Icon
@@ -87,7 +87,7 @@ export default function InvestmentTools() {
         </Block>
       </Animated.View>
       <Pressable onPress={() => navigation.navigate('FAQ')}>
-        <Animated.View entering={SlideInRight.duration(650)}>
+        <Animated.View entering={SlideInRight.delay(150)}>
           <Block card row marginBottom={sizes.sm}>
             <Block row align="center">
               <Icon
