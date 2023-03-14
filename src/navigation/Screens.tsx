@@ -19,6 +19,7 @@ import KYC from '../screens/KYC';
 import SideMenu from '../screens/SideMenu';
 import KYC2 from '../screens/KYC2';
 import FAQ from '../screens/FAQ';
+import AccountOpening from '../screens/AccountOpening';
 
 const Stack = createStackNavigator();
 
@@ -125,6 +126,11 @@ export default () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name="FAQ" component={FAQ} options={{headerShown: true}} />
+      <Stack.Screen
+        name="Account Opening"
+        component={AccountOpening}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

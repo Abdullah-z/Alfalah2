@@ -16,7 +16,7 @@ export default function InvestmentTools() {
       <Pressable onPress={() => navigation.navigate('Return Calculator')}>
         <Animated.View entering={SlideInRight.delay(0)}>
           <Block card row marginBottom={sizes.sm}>
-            <Block row align="center">
+            <Block padding={sizes.xs} row align="center">
               <Icon
                 mb="1"
                 as={<Ionicons name={'calculator-outline'} />}
@@ -41,7 +41,7 @@ export default function InvestmentTools() {
       <Pressable onPress={() => navigation.navigate('Tax Calculator')}>
         <Animated.View entering={SlideInRight.delay(50)}>
           <Block card row marginBottom={sizes.sm}>
-            <Block row align="center">
+            <Block padding={sizes.xs} row align="center">
               <Icon
                 mb="1"
                 as={<Ionicons name={'calculator-outline'} />}
@@ -65,7 +65,7 @@ export default function InvestmentTools() {
       </Pressable>
       <Animated.View entering={SlideInRight.delay(100)}>
         <Block card row marginBottom={sizes.sm}>
-          <Block row align="center">
+          <Block padding={sizes.xs} row align="center">
             <Icon
               mb="1"
               as={<Ionicons name={'document-text-outline'} />}
@@ -89,7 +89,7 @@ export default function InvestmentTools() {
       <Pressable onPress={() => navigation.navigate('FAQ')}>
         <Animated.View entering={SlideInRight.delay(150)}>
           <Block card row marginBottom={sizes.sm}>
-            <Block row align="center">
+            <Block padding={sizes.xs} row align="center">
               <Icon
                 mb="1"
                 as={<Ionicons name={'help-circle-outline'} />}

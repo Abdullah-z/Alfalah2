@@ -5,6 +5,7 @@ import {useTheme} from '../hooks';
 import {Block, Button, Text} from '../components';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import Logo from '../components/Logo';
 
 export default function Home() {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
@@ -22,14 +23,7 @@ export default function Home() {
             />
           </Block>
         </Pressable>
-        <View style={{alignItems: 'center'}}>
-          <Image
-            resizeMode="contain"
-            source={require('../../assets/alfLogo.png')}
-            style={{height: 150}}
-            marginVertical={sizes.sm}
-          />
-        </View>
+        <Logo />
 
         <Block>
           <FormControl>
@@ -59,6 +53,7 @@ export default function Home() {
               </Text>
             </Button>
             <Button
+              onPress={() => navigation.navigate('Account Opening')}
               white
               width={'45%'}
               marginHorizontal={sizes.xs}
