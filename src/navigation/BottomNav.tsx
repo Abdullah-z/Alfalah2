@@ -21,7 +21,6 @@ export default function BottomNav() {
         headerShown: true,
         tabBarStyle: {
           backgroundColor: colors.primary,
-          height: 70,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: 'white',

@@ -20,6 +20,7 @@ import SideMenu from '../screens/SideMenu';
 import KYC2 from '../screens/KYC2';
 import FAQ from '../screens/FAQ';
 import AccountOpening from '../screens/AccountOpening';
+import LoginNav from './LoginNav';
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,7 @@ export default () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={'Signin'}
+      initialRouteName={'Home'}
       screenOptions={{headerShown: false}}>
       <Stack.Screen
         name="Home"
@@ -129,6 +130,11 @@ export default () => {
       <Stack.Screen
         name="Account Opening"
         component={AccountOpening}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="LoginNav"
+        component={LoginNav}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

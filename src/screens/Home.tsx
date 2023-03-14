@@ -37,7 +37,10 @@ export default function Home() {
             <Text bold align="right">
               Forget Password?
             </Text>
-            <Button primary marginTop={sizes.sm}>
+            <Button
+              primary
+              marginTop={sizes.sm}
+              onPress={() => navigation.navigate('LoginNav')}>
               <Text white>Login</Text>
             </Button>
           </FormControl>
@@ -46,7 +49,7 @@ export default function Home() {
             <Button
               marginHorizontal={sizes.xs}
               white
-              width={'45%'}
+              width={'50%'}
               style={{borderWidth: 2, borderColor: colors.primary}}>
               <Text primary bold>
                 Register Now
@@ -55,7 +58,7 @@ export default function Home() {
             <Button
               onPress={() => navigation.navigate('Account Opening')}
               white
-              width={'45%'}
+              width={'50%'}
               marginHorizontal={sizes.xs}
               style={{borderWidth: 2, borderColor: colors.primary}}>
               <Text primary bold>
@@ -64,7 +67,7 @@ export default function Home() {
             </Button>
           </Block>
           <Block row>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.xs}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -75,7 +78,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.xs}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -86,7 +89,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.xs}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -97,7 +100,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.xs}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
