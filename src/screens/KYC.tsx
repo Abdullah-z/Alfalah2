@@ -359,7 +359,7 @@ export default function KYC() {
                 <Radio value="one" onChange={setZakat} my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="two" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -421,7 +421,7 @@ export default function KYC() {
                 <Radio value="one" onChange={setZakat} my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="two" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -475,7 +475,7 @@ export default function KYC() {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -499,7 +499,7 @@ export default function KYC() {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -515,7 +515,7 @@ export default function KYC() {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -531,7 +531,7 @@ export default function KYC() {
                 <Radio value="true" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: 25}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
                   No
                 </Radio>
               </HStack>
