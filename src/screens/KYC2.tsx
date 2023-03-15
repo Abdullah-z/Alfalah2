@@ -8,14 +8,16 @@ import {
   CheckIcon,
   FormControl,
   HStack,
-  VStack,
   Input,
   Select,
   Button,
+  Heading,
   Radio,
+  Modal,
+  Slider,
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {Value} from 'react-native-reanimated';
+import {color, Value} from 'react-native-reanimated';
 
 export default function KYC2({navigation}) {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
@@ -49,6 +51,12 @@ export default function KYC2({navigation}) {
   const [risk5, setRisk5] = useState(0);
   const [check, setCheck] = useState(0);
 
+  const [showModal, setShowModal] = useState(true);
+
+  const [sliderValue, setSliderValue] = useState(0);
+
+  const [slider_Text, setSlider_Text] = useState('');
+
   // console.log(risk + risk1 + risk2 + risk3 + risk4 + risk5);
 
   console.log(
@@ -76,6 +84,7 @@ export default function KYC2({navigation}) {
   };
 
   console.log('Life :  ' + isLifetimeExpiry);
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -91,11 +100,91 @@ export default function KYC2({navigation}) {
       setImage(result.assets[0].uri);
     }
   };
-  console.log(
-    risk4.length > 0 ? (risk && risk1 && risk2 && risk3 && risk5) == 0 : true,
-  );
 
-  // console.log(risk4.length > 0);
+  const Risk_Modal = () => {
+    console.log('Modal: ' + showModal);
+
+    return (
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal.Content width={sizes.lg} style={{padding: sizes.xs}}>
+          <Modal.Header height={sizes.sm}>
+            <Modal.CloseButton size={sizes.x} />
+          </Modal.Header>
+
+          <Modal.Body>
+            <FormControl>
+              <Heading>Thank You!</Heading>
+              <FormControl.Label>
+                On the basis of the survey, you can bear Medium Risk and
+                following products are recommended for you:
+              </FormControl.Label>
+              <View
+                height={sizes.l}
+                style={{borderWidth: 2, borderColor: 'black'}}
+              />
+              <FormControl.Label>
+                However using the slider, you can increase your risk and the
+                product range
+              </FormControl.Label>
+            </FormControl>
+          </Modal.Body>
+
+          <Modal.Footer
+            alignItems={'left'}
+            alignContent={'left'}
+            justifyContent={'left'}>
+            <Button.Group space={2}>
+              <Button
+                color={colors.primary}
+                size={sizes.lg}
+                width={sizes.sm}
+                onPress={() => {
+                  setShowModal(false);
+                }}>
+                OK
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    );
+  };
+
+  <FormControl.Label marginTop={sizes.xs} isRequired>
+    OCCUPATION
+  </FormControl.Label>;
+  const Risk_Slider = () => {
+    return (
+      <View marginTop={sizes.sm}>
+        <Text bold>
+          {sliderValue === 0
+            ? 'Very Low Risk'
+            : sliderValue === 1
+            ? 'Low Risk'
+            : sliderValue === 2
+            ? 'Moderate Risk'
+            : sliderValue === 3
+            ? 'Medium Risk'
+            : sliderValue === 4
+            ? 'high Risk'
+            : console.log('Noice')}
+        </Text>
+        <Slider
+          width={sizes.l}
+          colorScheme="cyan"
+          minValue={0}
+          maxValue={4}
+          value={sliderValue}
+          step={1}
+          onChange={(v) => setSliderValue(v)}>
+          <Slider.Track>
+            <Slider.FilledTrack />
+          </Slider.Track>
+          <Slider.Thumb />
+        </Slider>
+      </View>
+    );
+  };
 
   return (
     <ScrollView>
@@ -233,7 +322,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -242,7 +331,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -321,7 +410,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -330,14 +419,14 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
               </Button>
             </Block>
           </Block>
-        ) : step === 3 ? (
+        ) : step === 9 ? (
           <Block marginVertical={sizes.sm} card>
             <Text bold size={16}>
               Declaration by Customer
@@ -415,7 +504,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -424,7 +513,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -595,7 +684,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -604,7 +693,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -636,7 +725,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -645,7 +734,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -841,7 +930,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -850,7 +939,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1049,7 +1138,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1058,14 +1147,14 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
               </Button>
             </Block>
           </Block>
-        ) : step === 2 ? (
+        ) : step === 3 ? (
           <Block marginVertical={sizes.sm} card>
             <Text bold size={16}>
               Risk Profiling Questionnaire
@@ -1213,7 +1302,7 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.secondary}
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1228,7 +1317,143 @@ export default function KYC2({navigation}) {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                primary
+                bg={colors.primary}
+                onPress={() => setStep(step + 1)}
+                marginBottom={sizes.xs}>
+                <Text white>Next</Text>
+              </Button>
+            </Block>
+          </Block>
+        ) : step === 10 ? (
+          <Block card marginVertical={sizes.sm}>
+            <Text bold size={16}>
+              Risk Profile
+            </Text>
+            <Risk_Modal />
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              CUSTOMER SCORE
+            </FormControl.Label>
+            <Input value={'Score'} isDisabled />
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              Score Range
+            </FormControl.Label>
+            <Input value={'Range'} isDisabled />
+            <Risk_Slider />
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              Fund Risk Category
+            </FormControl.Label>
+            <Input
+              value={
+                'Equity Funds, Asset Allocation (with 0 – 100% Equity exposure mandate) and Balanced Funds (with 30% - 70% Equity exposure mandate), Commodity Funds, Index Trakker Funds and Sector Specific Equity related Funds'
+              }
+              isDisabled
+            />
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              Recommended Fund as per Fund(s) Risk Category
+            </FormControl.Label>
+            <Select
+              backgroundColor={'white'}
+              minWidth="200"
+              accessibilityLabel="Choose Service"
+              placeholder="Select Product?"
+              _selectedItem={{
+                bg: 'teal.600',
+                endIcon: <CheckIcon size={5} />,
+              }}
+              mt="1">
+              <Select.Item label="UX Research" value="ux" />
+              <Select.Item label="Web Development" value="web" />
+              <Select.Item label="Cross Platform Development" value="cross" />
+              <Select.Item label="UI Designing" value="ui" />
+              <Select.Item label="Backend Development" value="backend" />
+            </Select>
+            <Block row justify="center">
+              <Button
+                width={'45%'}
+                marginHorizontal={sizes.xs}
+                marginTop={sizes.sm}
+                bg={colors.secondary}
+                onPress={() => setStep(step - 1)}
+                marginBottom={sizes.xs}>
+                <Text white>Back</Text>
+              </Button>
+
+              <Button
+                width={'45%'}
+                marginHorizontal={sizes.xs}
+                marginTop={sizes.sm}
+                bg={colors.primary}
+                onPress={() => setStep(step + 1)}
+                marginBottom={sizes.xs}>
+                <Text white>Next</Text>
+              </Button>
+            </Block>
+          </Block>
+        ) : step === 2 ? (
+          <Block marginTop={sizes.sm} card>
+            <Text bold size={16}>
+              Upload Documents
+            </Text>
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              DOCUMENT SOURCE OF INCOME SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              NOMINEE CNIC SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              W-9 FORM (US CITIZEN) SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              W-8 FORM (FOR NON-US CITIZEN) SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              BUSINESS/EMPLOYMENT PROOF SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+
+            <FormControl.Label marginTop={sizes.xs} isRequired>
+              DIGITAL SIGNATURE SCAN COPY
+            </FormControl.Label>
+            <Button bg={colors.white} onPress={pickImage}>
+              <Text primary>Upload Image</Text>
+            </Button>
+            <Block row justify="center">
+              <Button
+                width={'45%'}
+                marginHorizontal={sizes.xs}
+                marginTop={sizes.sm}
+                bg={colors.secondary}
+                onPress={() => setStep(step - 1)}
+                marginBottom={sizes.xs}>
+                <Text white>Back</Text>
+              </Button>
+
+              <Button
+                width={'45%'}
+                marginHorizontal={sizes.xs}
+                marginTop={sizes.sm}
+                bg={colors.primary}
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1236,18 +1461,7 @@ export default function KYC2({navigation}) {
             </Block>
           </Block>
         ) : (
-          <>
-            <Text> Next SCREEN</Text>
-            <Button
-              width={'45%'}
-              marginHorizontal={sizes.xs}
-              marginTop={sizes.sm}
-              primary
-              onPress={() => setStep(step - 1)}
-              marginBottom={sizes.xs}>
-              <Text white>Back</Text>
-            </Button>
-          </>
+          <></>
         )}
       </View>
     </ScrollView>
