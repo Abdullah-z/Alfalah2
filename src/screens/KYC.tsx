@@ -3,6 +3,7 @@ import React from 'react';
 import {Text, Card, Block, Button} from '../components';
 import {useTheme} from '../hooks';
 import {useState} from 'react';
+import {Ionicons} from '@expo/vector-icons';
 import {
   Checkbox,
   CheckIcon,
@@ -11,8 +12,11 @@ import {
   Input,
   Select,
   Radio,
+  Icon,
+  Modal,
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Timeline from 'react-native-timeline-flatlist';
 
 export default function KYC() {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
@@ -24,6 +28,20 @@ export default function KYC() {
   const [zakat, setZakat] = useState(false);
   const [isOtherNationalities, setIsOtherNationalities] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const tdata = (data = [
+    {time: '✓', title: 'Identity Document', description: ''},
+    {time: '✓', title: 'Setup Profile', description: ''},
+    {time: '', title: 'Account Info', description: ''},
+    {time: '', title: 'KYC', description: ''},
+    {time: '', title: 'RPQ', description: ''},
+    {time: '', title: 'Risk Profile', description: ''},
+    {time: '', title: 'Upload Documents', description: ''},
+    {time: '', title: 'Review', description: ''},
+    {time: '', title: 'Finish', description: ''},
+  ]);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -56,10 +74,82 @@ export default function KYC() {
   };
   return (
     <ScrollView>
-      <View style={{margin: sizes.sm}}>
+      <Modal
+        minHeight={'full'}
+        minWidth={'full'}
+        size={'full'}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}>
+        <Modal.Content minHeight={'full'}>
+          <Modal.CloseButton />
+          <Modal.Header>Account Opening Steps</Modal.Header>
+          <Modal.Body>
+            {/* <Timeline
+                lineColor={colors.primary}
+                data={data}
+                innerCircle={'dot'}
+                dotColor={colors.primary}
+                circleColor={colors.primary}
+                columnFormat="single-column-left"
+                timeStyle={{
+                  textAlign: 'center',
+
+                  color: colors.primary,
+                  padding: 5,
+                  borderRadius: 13,
+                }}
+              /> */}
+
+            {tdata.map((index) => {
+              return (
+                <Block row align="center" marginVertical={sizes.xs}>
+                  <Icon
+                    onPress={() => setShowModal(true)}
+                    mb="1"
+                    as={<Ionicons name={'ellipse-outline'} />}
+                    size="xl"
+                    color={colors.black}
+                  />
+                  <Text h5>{index.title}</Text>
+                </Block>
+              );
+            })}
+          </Modal.Body>
+          <Modal.Footer>
+            {/* <Button.Group space={2}>
+                <Button
+                  variant="ghost"
+                  colorScheme="blueGray"
+                  onPress={() => {
+                    setShowModal(false);
+                  }}>
+                  Cancel
+                </Button>
+                <Button
+                  onPress={() => {
+                    setShowModal(false);
+                  }}>
+                  Save
+                </Button>
+              </Button.Group> */}
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+      <Block safe marginHorizontal={sizes.sm} marginTop={sizes.md}>
+        <Block align="flex-end">
+          <Icon
+            onPress={() => setShowModal(true)}
+            mb="1"
+            as={<Ionicons name={'menu-outline'} />}
+            size="4xl"
+            color={colors.black}
+          />
+        </Block>
+
         <Text h5 bold>
           Online Account Opening Application
         </Text>
+
         {step === 1 ? (
           <Block marginVertical={sizes.sm} card>
             <Text bold size={16}>
@@ -907,7 +997,7 @@ export default function KYC() {
         ) : (
           <></>
         )}
-      </View>
+      </Block>
     </ScrollView>
   );
 }

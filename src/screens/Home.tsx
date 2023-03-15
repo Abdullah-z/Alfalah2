@@ -5,6 +5,7 @@ import {useTheme} from '../hooks';
 import {Block, Button, Text} from '../components';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import Logo from '../components/Logo';
 
 export default function Home() {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
@@ -22,14 +23,7 @@ export default function Home() {
             />
           </Block>
         </Pressable>
-        <View style={{alignItems: 'center'}}>
-          <Image
-            resizeMode="contain"
-            source={require('../../assets/alfLogo.png')}
-            style={{height: 150}}
-            marginVertical={sizes.sm}
-          />
-        </View>
+        <Logo />
 
         <Block>
           <FormControl>
@@ -43,24 +37,29 @@ export default function Home() {
             <Text bold align="right">
               Forget Password?
             </Text>
-            <Button primary marginTop={sizes.sm}>
+            <Button
+              primary
+              marginTop={sizes.sm}
+              onPress={() => navigation.navigate('LoginNav')}>
               <Text white>Login</Text>
             </Button>
           </FormControl>
           <Text marginTop={sizes.xs}>Haven't registered yet?</Text>
           <Block row marginVertical={sizes.sm} center>
             <Button
+              onPress={() => navigation.navigate('Register')}
               marginHorizontal={sizes.xs}
               white
-              width={'45%'}
+              width={'50%'}
               style={{borderWidth: 2, borderColor: colors.primary}}>
               <Text primary bold>
                 Register Now
               </Text>
             </Button>
             <Button
+              onPress={() => navigation.navigate('Account Opening')}
               white
-              width={'45%'}
+              width={'50%'}
               marginHorizontal={sizes.xs}
               style={{borderWidth: 2, borderColor: colors.primary}}>
               <Text primary bold>
@@ -69,7 +68,7 @@ export default function Home() {
             </Button>
           </Block>
           <Block row>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -80,7 +79,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -91,7 +90,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -102,7 +101,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.s}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
