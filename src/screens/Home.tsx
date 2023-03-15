@@ -47,6 +47,7 @@ export default function Home() {
           <Text marginTop={sizes.xs}>Haven't registered yet?</Text>
           <Block row marginVertical={sizes.sm} center>
             <Button
+              onPress={() => navigation.navigate('Register')}
               marginHorizontal={sizes.xs}
               white
               width={'50%'}
@@ -67,7 +68,7 @@ export default function Home() {
             </Button>
           </Block>
           <Block row>
-            <Block marginHorizontal={sizes.xs}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -78,7 +79,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.xs}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -89,7 +90,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.xs}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}
@@ -100,7 +101,7 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.xs}>
+            <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
                   onPress={() => navigation.navigate('Side Menu')}

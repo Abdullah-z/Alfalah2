@@ -74,26 +74,17 @@ export default function KYC() {
   };
   return (
     <ScrollView>
-      <Block safe marginHorizontal={sizes.sm} marginTop={sizes.md}>
-        <Block align="flex-end">
-          <Icon
-            onPress={() => setShowModal(true)}
-            mb="1"
-            as={<Ionicons name={'menu-outline'} />}
-            size="4xl"
-            color={colors.black}
-          />
-        </Block>
-
-        <Modal
-          size={'full'}
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}>
-          <Modal.Content maxWidth="400px">
-            <Modal.CloseButton />
-            <Modal.Header>Account Opening Steps</Modal.Header>
-            <Modal.Body>
-              {/* <Timeline
+      <Modal
+        minHeight={'full'}
+        minWidth={'full'}
+        size={'full'}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}>
+        <Modal.Content minHeight={'full'}>
+          <Modal.CloseButton />
+          <Modal.Header>Account Opening Steps</Modal.Header>
+          <Modal.Body>
+            {/* <Timeline
                 lineColor={colors.primary}
                 data={data}
                 innerCircle={'dot'}
@@ -109,23 +100,23 @@ export default function KYC() {
                 }}
               /> */}
 
-              {tdata.map((index) => {
-                return (
-                  <Block row align="center" marginVertical={sizes.xs}>
-                    <Icon
-                      onPress={() => setShowModal(true)}
-                      mb="1"
-                      as={<Ionicons name={'ellipse-outline'} />}
-                      size="xl"
-                      color={colors.black}
-                    />
-                    <Text h5>{index.title}</Text>
-                  </Block>
-                );
-              })}
-            </Modal.Body>
-            <Modal.Footer>
-              {/* <Button.Group space={2}>
+            {tdata.map((index) => {
+              return (
+                <Block row align="center" marginVertical={sizes.xs}>
+                  <Icon
+                    onPress={() => setShowModal(true)}
+                    mb="1"
+                    as={<Ionicons name={'ellipse-outline'} />}
+                    size="xl"
+                    color={colors.black}
+                  />
+                  <Text h5>{index.title}</Text>
+                </Block>
+              );
+            })}
+          </Modal.Body>
+          <Modal.Footer>
+            {/* <Button.Group space={2}>
                 <Button
                   variant="ghost"
                   colorScheme="blueGray"
@@ -141,9 +132,19 @@ export default function KYC() {
                   Save
                 </Button>
               </Button.Group> */}
-            </Modal.Footer>
-          </Modal.Content>
-        </Modal>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+      <Block safe marginHorizontal={sizes.sm} marginTop={sizes.md}>
+        <Block align="flex-end">
+          <Icon
+            onPress={() => setShowModal(true)}
+            mb="1"
+            as={<Ionicons name={'menu-outline'} />}
+            size="4xl"
+            color={colors.black}
+          />
+        </Block>
 
         <Text h5 bold>
           Online Account Opening Application
