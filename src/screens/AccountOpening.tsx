@@ -8,7 +8,7 @@ export default function AccountOpening() {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
   return (
     <ScrollView>
-      <Block safe marginTop={sizes.md} marginHorizontal={sizes.sm}>
+      <Block marginTop={sizes.md} marginHorizontal={sizes.sm}>
         <Logo />
         <Block marginTop={sizes.sm}>
           <Block card marginVertical={sizes.xs}>

@@ -1,4 +1,10 @@
-import {View, ScrollView, Image, Touchable} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Image,
+  Touchable,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import React from 'react';
 import {FormControl, Icon, Input, Pressable} from 'native-base';
 import {useTheme} from '../hooks';
@@ -12,13 +18,13 @@ export default function Home() {
   const navigation = useNavigation();
   return (
     <ScrollView style={{backgroundColor: colors.white}}>
-      <Block safe style={{marginHorizontal: sizes.sm, marginTop: sizes.md}}>
+      <Block style={{marginHorizontal: sizes.sm, marginTop: sizes.md}}>
         <Pressable onPress={() => navigation.navigate('Side Menu')}>
           <Block align="flex-end">
             <Icon
               mb="1"
               as={<Ionicons name={'menu-outline'} />}
-              size="2xl"
+              size="4xl"
               color={colors.black}
             />
           </Block>
@@ -51,7 +57,7 @@ export default function Home() {
               marginHorizontal={sizes.xs}
               white
               width={'50%'}
-              style={{borderWidth: 2, borderColor: colors.primary}}>
+              style={{borderWidth: 1, borderColor: colors.primary}}>
               <Text primary bold>
                 Register Now
               </Text>
@@ -61,39 +67,42 @@ export default function Home() {
               white
               width={'50%'}
               marginHorizontal={sizes.xs}
-              style={{borderWidth: 2, borderColor: colors.primary}}>
+              style={{borderWidth: 1, borderColor: colors.primary}}>
               <Text primary bold>
                 Account Opening
               </Text>
             </Button>
           </Block>
           <Block row>
-            <Block marginHorizontal={sizes.sm}>
-              <Block justify="center" align="center" card primary>
-                <Icon
-                  onPress={() => navigation.navigate('Side Menu')}
-                  mb="1"
-                  as={<Ionicons name={'calculator-outline'} />}
-                  size="3xl"
-                  color={colors.white}
-                />
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Return Calculator')}>
+              <Block marginHorizontal={sizes.sm}>
+                <Block justify="center" align="center" card primary>
+                  <Icon
+                    mb="1"
+                    as={<Ionicons name={'calculator-outline'} />}
+                    size="3xl"
+                    color={colors.white}
+                  />
+                </Block>
               </Block>
-            </Block>
-            <Block marginHorizontal={sizes.sm}>
-              <Block justify="center" align="center" card primary>
-                <Icon
-                  onPress={() => navigation.navigate('Side Menu')}
-                  mb="1"
-                  as={<Ionicons name={'calculator-outline'} />}
-                  size="3xl"
-                  color={colors.white}
-                />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Tax Calculator')}>
+              <Block marginHorizontal={sizes.sm}>
+                <Block justify="center" align="center" card primary>
+                  <Icon
+                    mb="1"
+                    as={<Ionicons name={'calculator-outline'} />}
+                    size="3xl"
+                    color={colors.white}
+                  />
+                </Block>
               </Block>
-            </Block>
+            </TouchableWithoutFeedback>
             <Block marginHorizontal={sizes.sm}>
               <Block justify="center" align="center" card primary>
                 <Icon
-                  onPress={() => navigation.navigate('Side Menu')}
                   mb="1"
                   as={<Ionicons name={'document-text-outline'} />}
                   size="3xl"
@@ -101,37 +110,39 @@ export default function Home() {
                 />
               </Block>
             </Block>
-            <Block marginHorizontal={sizes.sm}>
-              <Block justify="center" align="center" card primary>
-                <Icon
-                  onPress={() => navigation.navigate('Side Menu')}
-                  mb="1"
-                  as={<Ionicons name={'help-circle-outline'} />}
-                  size="3xl"
-                  color={colors.white}
-                />
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('FAQ')}>
+              <Block marginHorizontal={sizes.sm}>
+                <Block justify="center" align="center" card primary>
+                  <Icon
+                    mb="1"
+                    as={<Ionicons name={'help-circle-outline'} />}
+                    size="3xl"
+                    color={colors.white}
+                  />
+                </Block>
               </Block>
-            </Block>
+            </TouchableWithoutFeedback>
           </Block>
           <Block row>
             <Block marginHorizontal={sizes.xs}>
-              <Text size={12} center>
+              <Text size={10} center>
                 Return Calculator
               </Text>
             </Block>
             <Block marginHorizontal={sizes.xs}>
-              <Text size={12} center>
+              <Text size={10} center>
                 Tax Calculator
               </Text>
             </Block>
 
             <Block marginHorizontal={sizes.xs}>
-              <Text size={12} center>
+              <Text size={10} center>
                 Risk Profile
               </Text>
             </Block>
             <Block marginHorizontal={sizes.xs}>
-              <Text size={12} center>
+              <Text size={10} center>
                 FAQ
               </Text>
             </Block>
