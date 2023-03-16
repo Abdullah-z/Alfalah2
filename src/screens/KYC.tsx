@@ -1,5 +1,5 @@
 import {View, ScrollView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, Card, Block, Button} from '../components';
 import {useTheme} from '../hooks';
 import {useState} from 'react';
@@ -14,21 +14,137 @@ import {
   Radio,
   Icon,
   Modal,
+  VStack,
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Timeline from 'react-native-timeline-flatlist';
 
-export default function KYC() {
+interface Information {
+  Name: string;
+  Father_Name: string;
+  Mother_Name: string;
+  Gender: string;
+  DOB: string;
+  //Residental
+  Permanent_Resident_Pakistan: string;
+  Nationality: string;
+  Country_Residence: string;
+  Any_Other_Nationality: string; // Nationality
+  US_Green_Card: string;
+  US_Resident: string;
+  Tax_Resident_Pakistan_US: string;
+  //Contact
+  Address: string;
+  Business_Address: string;
+  City: string;
+  State: string;
+  Postal_Code: number;
+  Country_Code: number;
+  Phone_Number: number;
+  Tel_No_Res: number;
+  Tel_No_Off: number;
+  Fax: number;
+  Whatsapp_No: number;
+  Email: string;
+  //Tax
+  Tax_Status: string;
+  NTN: number;
+  Religion: string; // remaining
+  Tax_Deduction: string; // remaining
+  // Bank
+  Bank_Name: string;
+  Bank_Branch: string;
+  Bank_Account_Title: string;
+  Bank_Branch_Code: string;
+  Bank_IBAN_Account_No: string;
+  Bank_Branch_Address: string;
+  // Nominee Info
+  Nominee_Name: string;
+  Nominee_Relationship_Investor: string;
+  Nominee_CNIC: number;
+  Nominee_CNIC_Issuance_Date: string;
+  Nominee_CNIC_Expiry_Date: string;
+  Nominee_Allocation: string;
+  // Account Managment
+  Account_Operate_Account: string;
+  Account_Others: string;
+  Account_Cash_Dividend: string;
+  Account_Stock_Divident: string;
+  Account_Statement_Wish: string;
+  Account_Statement_Yes_Mail: string;
+  Account_All_Other_Correspondence: string;
+}
+
+export default function KYC({navigation}) {
+  const [registration, setRegistration] = useState<Information>({
+    Name: '',
+    Father_Name: '',
+    Mother_Name: '',
+    Gender: '',
+    DOB: '',
+    //Residental
+    Permanent_Resident_Pakistan: '',
+    Nationality: '',
+    Country_Residence: '',
+    Any_Other_Nationality: '',
+    US_Green_Card: '',
+    US_Resident: '',
+    Tax_Resident_Pakistan_US: '',
+    //Contact
+    Address: '',
+    Business_Address: '',
+    City: '',
+    State: '',
+    Postal_Code: null,
+    Country_Code: null,
+    Phone_Number: null,
+    Tel_No_Res: null,
+    Tel_No_Off: null,
+    Fax: null,
+    Whatsapp_No: null,
+    Email: '',
+    // Tax
+    Tax_Status: '',
+    NTN: null,
+    Religion: '', // remaining
+    Tax_Deduction: '', // remaining
+    // Bank
+    Bank_Name: '',
+    Bank_Branch: '',
+    Bank_Account_Title: '',
+    Bank_Branch_Code: '',
+    Bank_IBAN_Account_No: '',
+    Bank_Branch_Address: '',
+    // Nominee Info
+    Nominee_Name: '',
+    Nominee_Relationship_Investor: '',
+    Nominee_CNIC: null,
+    Nominee_CNIC_Issuance_Date: '',
+    Nominee_CNIC_Expiry_Date: '',
+    Nominee_Allocation: '',
+    // Account Managment
+    Account_Operate_Account: '',
+    Account_Others: '',
+    Account_Cash_Dividend: '',
+    Account_Stock_Divident: '',
+    Account_Statement_Wish: '',
+    Account_Statement_Yes_Mail: '',
+    Account_All_Other_Correspondence: '',
+  });
   const {assets, colors, fonts, gradients, sizes} = useTheme();
 
   const [image, setImage] = useState(null);
   const [step, setStep] = useState(1);
+
+  console.log('Registration : ' + JSON.stringify(registration));
 
   const [isLifetimeExpiry, setIsLifetimeExpiry] = useState(false);
   const [zakat, setZakat] = useState(false);
   const [isOtherNationalities, setIsOtherNationalities] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+  const [dob, setDob] = useState('');
+  console.log('Date: ' + dob);
   const [showModal, setShowModal] = useState(false);
 
   const tdata = (data = [
@@ -43,6 +159,13 @@ export default function KYC() {
     {time: '', title: 'Finish', description: ''},
   ]);
 
+  const handleChange = useCallback(
+    (value) => {
+      setRegistration((state) => ({...state, ...value}));
+    },
+    [setRegistration],
+  );
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -52,11 +175,22 @@ export default function KYC() {
   };
 
   const handleConfirm = (date) => {
-    console.warn('A date has been picked: ', date);
+    const var_date = JSON.stringify(date).substring(0, 11);
+    const final_date = var_date.split('-').reverse().join('-');
+    console.warn('A date has been picked: ', final_date);
     hideDatePicker();
   };
 
-  console.log('Life :  ' + isLifetimeExpiry);
+  const handleConfirm_Dob = (date) => {
+    const var_date = JSON.stringify(date).substring(0, 11);
+    const final_date = var_date.split('-').reverse().join('-');
+    console.warn('---- A date has been picked: ', final_date);
+    handleChange({DOB: final_date});
+    hideDatePicker();
+  };
+
+  console.log('Life :  ' + dob);
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -135,7 +269,7 @@ export default function KYC() {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-      <Block safe marginHorizontal={sizes.sm} marginTop={sizes.md}>
+      <Block marginHorizontal={sizes.sm} marginTop={sizes.md}>
         <Block align="flex-end">
           <Icon
             onPress={() => setShowModal(true)}
@@ -201,15 +335,24 @@ export default function KYC() {
             </Text>
             <FormControl marginTop={sizes.xs}>
               <FormControl.Label isRequired>FULL NAME</FormControl.Label>
-              <Input />
+              <Input
+                placeholder="Enter Full Name"
+                onChangeText={(value) => handleChange({Name: value})}
+              />
               <FormControl.Label marginTop={sizes.xs} isRequired>
                 FATHER'S/HUSBAND'S NAME
               </FormControl.Label>
-              <Input />
+              <Input
+                placeholder="Enter Father's/Husband's Name"
+                onChangeText={(value) => handleChange({Father_Name: value})}
+              />
               <FormControl.Label marginTop={sizes.xs} isRequired>
                 MOTHER'S NAME
               </FormControl.Label>
-              <Input />
+              <Input
+                placeholder="Enter Mother's Name"
+                onChangeText={(value) => handleChange({Mother_Name: value})}
+              />
             </FormControl>
             <FormControl.Label marginTop={sizes.xs} isRequired>
               ID DOCUMENT TYPE
@@ -233,7 +376,7 @@ export default function KYC() {
             <FormControl.Label marginTop={sizes.xs} isRequired>
               ID DOCUMENT NUMBER
             </FormControl.Label>
-            <Input />
+            <Input placeholder="Enter ID Document Number" />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               ISSUANCE DATE
@@ -248,7 +391,7 @@ export default function KYC() {
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
-                onConfirm={handleConfirm}
+                onConfirm={handleConfirm_Dob}
                 onCancel={hideDatePicker}
               />
             </View>
@@ -291,7 +434,7 @@ export default function KYC() {
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
-                onConfirm={handleConfirm}
+                onConfirm={handleConfirm_Dob}
                 onCancel={hideDatePicker}
               />
             </View>
@@ -328,9 +471,10 @@ export default function KYC() {
                 bg: 'teal.600',
                 endIcon: <CheckIcon size={5} />,
               }}
-              mt="1">
-              <Select.Item label="Male" value="ux" />
-              <Select.Item label="Female" value="web" />
+              mt="1"
+              onValueChange={(value) => handleChange({Gender: value})}>
+              <Select.Item label="Male" value="Male" />
+              <Select.Item label="Female" value="Female" />
             </Select>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
@@ -417,12 +561,15 @@ export default function KYC() {
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
+              accessibilityLabel="favorite number"
+              onChange={(value) => {
+                handleChange({Permanent_Resident_Pakistan: value});
+              }}>
               <HStack>
-                <Radio value="one" onChange={setZakat} my={1}>
+                <Radio value="Yes" onChange={setZakat} my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="No" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -436,13 +583,14 @@ export default function KYC() {
               minWidth="200"
               accessibilityLabel="Choose Service"
               placeholder="Select Nationality"
+              onValueChange={(v) => handleChange({Nationality: v})}
               _selectedItem={{
                 bg: 'teal.600',
                 endIcon: <CheckIcon size={5} />,
               }}
               mt="1">
-              <Select.Item label="Male" value="ux" />
-              <Select.Item label="Female" value="web" />
+              <Select.Item label="Male" value="Male" />
+              <Select.Item label="Female" value="Female" />
             </Select>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
@@ -453,30 +601,33 @@ export default function KYC() {
               minWidth="200"
               accessibilityLabel="Choose Service"
               placeholder="Select Nationality"
+              onValueChange={(v) => handleChange({Country_Residence: v})}
               _selectedItem={{
                 bg: 'teal.600',
                 endIcon: <CheckIcon size={5} />,
               }}
               mt="1">
-              <Select.Item label="Male" value="ux" />
-              <Select.Item label="Female" value="web" />
+              <Select.Item label="Male" value="Male" />
+              <Select.Item label="Female" value="Female" />
             </Select>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
-              DO YOU HAVE OTHER RESIDENCE?
+              DO YOU HAVE OTHER NATIONALITIES?
             </FormControl.Label>
             <Radio.Group
               onChange={(value) => {
-                setIsOtherNationalities(value);
+                {
+                  setIsOtherNationalities(value);
+                  handleChange({Any_Other_Nationality: value});
+                }
               }}
               name="myRadioGroup"
-              accessibilityLabel="favorite number"
-              isDefault="false">
+              accessibilityLabel="favorite number">
               <HStack>
-                <Radio value="true" my={1}>
+                <Radio value="Yes" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="No" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -494,13 +645,18 @@ export default function KYC() {
               DO YOU HOLD US PERMANENT RESIDENT CARD (GREEN CARD)?
             </FormControl.Label>
             <Radio.Group
+              onChange={(value) => {
+                {
+                  handleChange({US_Green_Card: value});
+                }
+              }}
               name="myRadioGroup"
               accessibilityLabel="favorite number">
               <HStack>
-                <Radio value="true" my={1}>
+                <Radio value="Yes" my={1}>
                   Yes
                 </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="No" my={1}>
                   No
                 </Radio>
               </HStack>
@@ -511,7 +667,12 @@ export default function KYC() {
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
+              accessibilityLabel="favorite number"
+              onChange={(value) => {
+                {
+                  handleChange({US_Resident: value});
+                }
+              }}>
               <HStack>
                 <Radio value="true" my={1}>
                   Yes
@@ -527,7 +688,12 @@ export default function KYC() {
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
+              accessibilityLabel="favorite number"
+              onChange={(value) => {
+                {
+                  handleChange({Tax_Resident_Pakistan_US: value});
+                }
+              }}>
               <HStack>
                 <Radio value="true" my={1}>
                   Yes
@@ -568,12 +734,18 @@ export default function KYC() {
             <FormControl.Label marginTop={sizes.xs} isRequired>
               ADDRESS
             </FormControl.Label>
-            <Input placeholder="Enter Address" />
+            <Input
+              placeholder="Enter Address"
+              onChangeText={(value) => handleChange({Address: value})}
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               CORRESPONDENCE ADDRESS
             </FormControl.Label>
-            <Input placeholder="Enter Correspondence Address" />
+            <Input
+              placeholder="Enter Correspondence Address"
+              onChangeText={(value) => handleChange({Business_Address: value})}
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               CITY
@@ -587,7 +759,10 @@ export default function KYC() {
                 bg: 'teal.600',
                 endIcon: <CheckIcon size={5} />,
               }}
-              mt="1">
+              mt="1"
+              onValueChange={(value) =>
+                handleChange({Business_Address: value})
+              }>
               <Select.Item label="Male" value="ux" />
               <Select.Item label="Female" value="web" />
             </Select>
@@ -604,7 +779,8 @@ export default function KYC() {
                 bg: 'teal.600',
                 endIcon: <CheckIcon size={5} />,
               }}
-              mt="1">
+              mt="1"
+              onValueChange={(value) => handleChange({City: value})}>
               <Select.Item label="Male" value="ux" />
               <Select.Item label="Female" value="web" />
             </Select>
@@ -612,58 +788,87 @@ export default function KYC() {
             <FormControl.Label marginTop={sizes.xs} isRequired>
               ZIP CODE / POSTAL CODE
             </FormControl.Label>
-            <Input placeholder="Enter Zip Code/ Postal Code" />
+            <Input
+              placeholder="Enter Zip Code/ Postal Code"
+              onChangeText={(value) =>
+                handleChange({Postal_Code: parseInt(value)})
+              }
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               TEL NO. (RES)
             </FormControl.Label>
-            <Input placeholder="Enter Tel No.(Res)" />
+            <Input
+              placeholder="Enter Tel No.(Res)"
+              onChangeText={(value) =>
+                handleChange({Tel_No_Res: parseInt(value)})
+              }
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               TEL NO. (OFF)
             </FormControl.Label>
-            <Input placeholder="Enter Tel No.(OFF)" />
+            <Input
+              placeholder="Enter Tel No.(OFF)"
+              onChangeText={(value) =>
+                handleChange({Tel_No_Off: parseInt(value)})
+              }
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               FAX
             </FormControl.Label>
-            <Input placeholder="Enter Fax" />
+            <Input
+              placeholder="Enter Fax"
+              onChangeText={(value) => handleChange({Fax: parseInt(value)})}
+            />
 
-            <FormControl.Label marginTop={sizes.xs} isRequired>
-              PHONE NUMBER
-            </FormControl.Label>
-            <HStack>
-              <Select
-                height={sizes.x}
-                backgroundColor={'white'}
-                minWidth="120"
-                accessibilityLabel="Select State"
-                placeholder="Select State"
-                _selectedItem={{
-                  bg: 'teal.600',
-                  endIcon: <CheckIcon size={5} />,
-                }}
-                mt="1">
-                <Select.Item label="Male" value="ux" />
-                <Select.Item label="Female" value="web" />
-              </Select>
-              <Input
-                marginTop={sizes.xs}
-                height={sizes.x}
-                minWidth="120"
-                placeholder="Enter Phone Number"
-              />
-            </HStack>
+            <FormControl.Label isRequired>PHONE NUMBER</FormControl.Label>
+            <Block row justify="center" align="center">
+              <View style={{width: '40%'}}>
+                <Select
+                  backgroundColor={'white'}
+                  accessibilityLabel="Select State"
+                  placeholder="Select State"
+                  _selectedItem={{
+                    bg: 'teal.600',
+                    endIcon: <CheckIcon size={5} />,
+                  }}
+                  onValueChange={(value) =>
+                    handleChange({Country_Code: value})
+                  }>
+                  <Select.Item label="Pakistan" value="+92" />
+                  <Select.Item label="England" value="45" />
+                </Select>
+              </View>
+              <Block width={'70%'}>
+                <Input
+                  minW={'70%'}
+                  placeholder="Enter Phone Number"
+                  onChangeText={(value) =>
+                    handleChange({Phone_Number: parseInt(value)})
+                  }
+                />
+              </Block>
+            </Block>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               WHATSAPP NO.
             </FormControl.Label>
-            <Input placeholder="Enter Whatsapp No" />
+            <Input
+              placeholder="Enter Whatsapp No"
+              onChangeText={(value) =>
+                handleChange({Whatsapp_No: parseInt(value)})
+              }
+            />
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               EMAIL
             </FormControl.Label>
-            <Input placeholder="Enter Email Address" />
+            <Input
+              placeholder="Enter Email Address"
+              onChangeText={(value) => handleChange({Email: value})}
+            />
 
             <Block row justify="center">
               <Button
@@ -696,12 +901,13 @@ export default function KYC() {
             </FormControl.Label>
             <Radio.Group
               name="myRadioGroup"
-              accessibilityLabel="favorite number">
+              accessibilityLabel="favorite number"
+              onChange={(value) => handleChange({Tax_Status: value})}>
               <HStack>
-                <Radio value="true" my={1}>
+                <Radio value="Filer" my={1}>
                   Filer
                 </Radio>
-                <Radio style={{marginLeft: sizes.sm}} value="false" my={1}>
+                <Radio style={{marginLeft: sizes.sm}} value="Non-Filer" my={1}>
                   Non-Filer
                 </Radio>
               </HStack>
@@ -709,7 +915,10 @@ export default function KYC() {
             <FormControl.Label marginTop={sizes.xs} isRequired>
               NATIONAL TAX NO. (NTN)
             </FormControl.Label>
-            <Input placeholder="Enter NTN" />
+            <Input
+              placeholder="Enter NTN"
+              onChangeText={(value) => handleChange({NTN: parseInt(value)})}
+            />
             <Block row justify="center">
               <Button
                 width={'45%'}
@@ -957,8 +1166,13 @@ export default function KYC() {
               (IF YES, PLEASE SELECT THE NATURE OF MAIL)
             </FormControl.Label>
             <HStack>
-              <Checkbox onChange={setIsLifetimeExpiry}>Post</Checkbox>
-              <Checkbox marginLeft={sizes.sm} onChange={setIsLifetimeExpiry}>
+              <Checkbox onChange={setIsLifetimeExpiry} value={'Post'}>
+                Post
+              </Checkbox>
+              <Checkbox
+                marginLeft={sizes.sm}
+                value={'Email'}
+                onChange={setIsLifetimeExpiry}>
                 Email
               </Checkbox>
             </HStack>
@@ -967,8 +1181,13 @@ export default function KYC() {
               FOR ALL OTHER CORRESPONDENCE:
             </FormControl.Label>
             <HStack>
-              <Checkbox onChange={setIsLifetimeExpiry}>SMS</Checkbox>
-              <Checkbox marginLeft={sizes.sm} onChange={setIsLifetimeExpiry}>
+              <Checkbox value={'SMS'} onChange={setIsLifetimeExpiry}>
+                SMS
+              </Checkbox>
+              <Checkbox
+                value={'Email'}
+                marginLeft={sizes.sm}
+                onChange={setIsLifetimeExpiry}>
                 Email
               </Checkbox>
             </HStack>
@@ -994,6 +1213,248 @@ export default function KYC() {
               </Button>
             </Block>
           </Block>
+        ) : step === 9 ? (
+          <>
+            <Text
+              bold
+              size={19}
+              style={{
+                borderBottomWidth: sizes.xs,
+                borderBottomColor: colors.primary,
+              }}>
+              Preview Profile
+            </Text>
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Basic Information
+              </Text>
+
+              <VStack>
+                <Text>Name :</Text>
+                <Text>{registration.Name}</Text>
+              </VStack>
+              <VStack>
+                <Text>Father Name :</Text>
+                <Text>{registration.Father_Name}</Text>
+              </VStack>
+              <VStack>
+                <Text>Mother Name :</Text>
+                <Text>{registration.Mother_Name}</Text>
+              </VStack>
+              <VStack>
+                <Text>Gender :</Text>
+                <Text>{registration.Gender}</Text>
+              </VStack>
+              <VStack>
+                <Text>Date of Birth :</Text>
+                <Text>{registration.DOB}</Text>
+              </VStack>
+            </Block>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Residential Information
+              </Text>
+              <VStack>
+                <Text>Permanent Resident in Pakistan :</Text>
+                <Text>{registration.Permanent_Resident_Pakistan}</Text>
+              </VStack>
+              <VStack>
+                <Text>Nationality :</Text>
+                <Text>{registration.Nationality}</Text>
+              </VStack>
+              <VStack>
+                <Text>Country of Residence :</Text>
+                <Text>{registration.Country_Residence}</Text>
+              </VStack>
+              <VStack>
+                <Text>Do You have any other Nationalities :</Text>
+                <Text>{registration.Any_Other_Nationality}</Text>
+              </VStack>
+              <VStack>
+                <Text>Do you hold any US Green Card ?</Text>
+                <Text>{registration.US_Green_Card}</Text>
+              </VStack>
+              <VStack>
+                <Text>Do you a US Resident ?</Text>
+                <Text>{registration.US_Resident}</Text>
+              </VStack>
+              <VStack>
+                <Text>Are you tax resident of Pakistan and/or USA?</Text>
+                <Text>{registration.Tax_Resident_Pakistan_US}</Text>
+              </VStack>
+            </Block>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Contact Information
+              </Text>
+              <VStack>
+                <Text>Address:</Text>
+                <Text>{registration.Address}</Text>
+              </VStack>
+              <VStack>
+                <Text>
+                  Business / Registered Address (In case of sole proprietor) :
+                </Text>
+                <Text>{registration.Business_Address}</Text>
+              </VStack>
+              <VStack>
+                <Text>City:</Text>
+                <Text>{registration.City}</Text>
+              </VStack>
+              <VStack>
+                <Text>State:</Text>
+                <Text>{registration.State}</Text>
+              </VStack>
+              <VStack>
+                <Text>Postal Code: ?</Text>
+                <Text>{registration.Postal_Code}</Text>
+              </VStack>
+              <VStack>
+                <Text>Phone Number: ?</Text>
+                <Text>{registration.Phone_Number}</Text>
+              </VStack>
+              <VStack>
+                <Text>Tel No. (Res):</Text>
+                <Text>{registration.Tel_No_Res}</Text>
+              </VStack>
+              <VStack>
+                <Text>Tel No. (Off):</Text>
+                <Text>{registration.Tel_No_Off}</Text>
+              </VStack>
+              <VStack>
+                <Text>Fax:</Text>
+                <Text>{registration.Fax}</Text>
+              </VStack>
+              <VStack>
+                <Text>WhatsApp No :</Text>
+                <Text>{registration.Whatsapp_No}</Text>
+              </VStack>
+              <VStack marginBottom={sizes.s}>
+                <Text>Email Address:</Text>
+                <Text>{registration.Email}</Text>
+              </VStack>
+            </Block>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Tax Information
+              </Text>
+              <VStack>
+                <Text>National Tax No.(NTN):</Text>
+                <Text>{registration.NTN}</Text>
+              </VStack>
+              <VStack marginTop={sizes.xs} marginBottom={sizes.s}>
+                <Text>Tax Status:</Text>
+                <Text>{registration.Tax_Status}</Text>
+              </VStack>
+            </Block>
+
+            <Text bold size={19} marginTop={sizes.sm}>
+              Account Info
+            </Text>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Bank Information
+              </Text>
+              <VStack>
+                <Text>Bank Name: </Text>
+                <Text>{registration.Bank_Name}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Branch :</Text>
+                <Text>{registration.Bank_Branch}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Bank Account Title:</Text>
+                <Text>{registration.Bank_Account_Title}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Branch Code:</Text>
+                <Text>{registration.Bank_Branch_Code}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Bank Address: ?</Text>
+                <Text>{registration.Bank_Branch_Address}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s} marginBottom={sizes.s}>
+                <Text>IBAN/Account No: ?</Text>
+                <Text>{registration.Bank_IBAN_Account_No}</Text>
+              </VStack>
+            </Block>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Nominee Information
+              </Text>
+              <VStack>
+                <Text>Name (Mr./Ms./Mrs.): </Text>
+                <Text>{registration.Nominee_Name}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Relationship with Investor:</Text>
+                <Text>{registration.Nominee_Relationship_Investor}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>CNIC/NICOP No.:</Text>
+                <Text>{registration.Nominee_CNIC}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Issuance Date:</Text>
+                <Text>{registration.Nominee_CNIC_Issuance_Date}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Expiry Date:</Text>
+                <Text>{registration.Nominee_CNIC_Expiry_Date}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s} marginBottom={sizes.s}>
+                <Text>Allocation %:</Text>
+                <Text>{registration.Nominee_Allocation}</Text>
+              </VStack>
+            </Block>
+
+            <Block card marginTop={sizes.sm}>
+              <Text bold size={16} marginTop={sizes.sm} marginBottom={sizes.sm}>
+                Nominee Information
+              </Text>
+              <VStack>
+                <Text>Name (Mr./Ms./Mrs.): </Text>
+                <Text>{registration.Nominee_Name}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Relationship with Investor:</Text>
+                <Text>{registration.Nominee_Relationship_Investor}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>CNIC/NICOP No.:</Text>
+                <Text>{registration.Nominee_CNIC}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Issuance Date:</Text>
+                <Text>{registration.Nominee_CNIC_Issuance_Date}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s}>
+                <Text>Expiry Date:</Text>
+                <Text>{registration.Nominee_CNIC_Expiry_Date}</Text>
+              </VStack>
+              <VStack marginTop={sizes.s} marginBottom={sizes.s}>
+                <Text>Allocation %:</Text>
+                <Text>{registration.Nominee_Allocation}</Text>
+              </VStack>
+            </Block>
+
+            <Button
+              width={'45%'}
+              marginHorizontal={sizes.xs}
+              marginTop={sizes.sm}
+              primary
+              onPress={() => setStep(step - 1)}
+              marginBottom={sizes.xs}>
+              <Text white>Back</Text>
+            </Button>
+          </>
         ) : (
           <></>
         )}

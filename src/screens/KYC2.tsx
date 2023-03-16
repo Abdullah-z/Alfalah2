@@ -49,7 +49,6 @@ export default function KYC2({navigation}) {
   const [risk3, setRisk3] = useState(0);
   const [risk4, setRisk4] = useState([]);
   const [risk5, setRisk5] = useState(0);
-  const [check, setCheck] = useState(0);
 
   const [showModal, setShowModal] = useState(true);
 
@@ -203,22 +202,18 @@ export default function KYC2({navigation}) {
               <Radio.Group
                 name="myRadioGroup"
                 accessibilityLabel="favorite number">
-                <HStack>
-                  <Radio value="one" my={1}>
-                    UnderGraduate
-                  </Radio>
-                  <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
-                    Graduate
-                  </Radio>
-                </HStack>
-                <HStack>
-                  <Radio value="one" my={1}>
-                    PostGraduate
-                  </Radio>
-                  <Radio style={{marginLeft: sizes.sm}} value="two" my={1}>
-                    Professional
-                  </Radio>
-                </HStack>
+                <Radio value="one" my={1}>
+                  UnderGraduate
+                </Radio>
+                <Radio value="two" my={1}>
+                  Graduate
+                </Radio>
+                <Radio value="three" my={1}>
+                  PostGraduate
+                </Radio>
+                <Radio value="four" my={1}>
+                  Professional
+                </Radio>
               </Radio.Group>
 
               <FormControl.Label marginTop={sizes.xs} isRequired>
@@ -323,7 +318,7 @@ export default function KYC2({navigation}) {
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
                 bg={colors.secondary}
-                onPress={() => setStep(step - 1)}
+                onPress={() => navigation.navigate('KYC')}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
               </Button>
@@ -676,6 +671,7 @@ export default function KYC2({navigation}) {
               PROVIDE DETAILS:
             </FormControl.Label>
             <Input
+              numberOfLines={4}
               placeholder="Enter Details"
               isDisabled={pepDeclaration == 'true' ? false : true}
             />
