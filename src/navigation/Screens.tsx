@@ -21,6 +21,7 @@ import KYC2 from '../screens/KYC2';
 import FAQ from '../screens/FAQ';
 import AccountOpening from '../screens/AccountOpening';
 import LoginNav from './LoginNav';
+import RiskProfile from '../screens/RiskProfile';
 
 const Stack = createStackNavigator();
 
@@ -136,6 +137,11 @@ export default () => {
         name="LoginNav"
         component={LoginNav}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Risk Profile"
+        component={RiskProfile}
+        options={{headerShown: true}}
       />
     </Stack.Navigator>
   );

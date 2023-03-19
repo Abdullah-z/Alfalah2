@@ -63,29 +63,31 @@ export default function InvestmentTools() {
           </Block>
         </Animated.View>
       </Pressable>
-      <Animated.View entering={SlideInRight.delay(100)}>
-        <Block card row marginBottom={sizes.sm}>
-          <Block padding={sizes.xs} row align="center">
-            <Icon
-              mb="1"
-              as={<Ionicons name={'document-text-outline'} />}
-              size="2xl"
-              color={colors.primary}
-            />
-            <Text marginLeft={sizes.sm} semibold>
-              Risk Profile
-            </Text>
+      <Pressable onPress={() => navigation.navigate('Risk Profile')}>
+        <Animated.View entering={SlideInRight.delay(100)}>
+          <Block card row marginBottom={sizes.sm}>
+            <Block padding={sizes.xs} row align="center">
+              <Icon
+                mb="1"
+                as={<Ionicons name={'document-text-outline'} />}
+                size="2xl"
+                color={colors.primary}
+              />
+              <Text marginLeft={sizes.sm} semibold>
+                Risk Profile
+              </Text>
+            </Block>
+            <Block align="flex-end" justify="center">
+              <Icon
+                mb="1"
+                as={<Ionicons name={'chevron-forward-outline'} />}
+                size="lg"
+                color={colors.primary}
+              />
+            </Block>
           </Block>
-          <Block align="flex-end" justify="center">
-            <Icon
-              mb="1"
-              as={<Ionicons name={'chevron-forward-outline'} />}
-              size="lg"
-              color={colors.primary}
-            />
-          </Block>
-        </Block>
-      </Animated.View>
+        </Animated.View>
+      </Pressable>
       <Pressable onPress={() => navigation.navigate('FAQ')}>
         <Animated.View entering={SlideInRight.delay(150)}>
           <Block card row marginBottom={sizes.sm}>

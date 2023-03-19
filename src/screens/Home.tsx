@@ -100,16 +100,19 @@ export default function Home() {
                 </Block>
               </Block>
             </TouchableWithoutFeedback>
-            <Block marginHorizontal={sizes.sm}>
-              <Block justify="center" align="center" card primary>
-                <Icon
-                  mb="1"
-                  as={<Ionicons name={'document-text-outline'} />}
-                  size="3xl"
-                  color={colors.white}
-                />
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Risk Profile')}>
+              <Block marginHorizontal={sizes.sm}>
+                <Block justify="center" align="center" card primary>
+                  <Icon
+                    mb="1"
+                    as={<Ionicons name={'document-text-outline'} />}
+                    size="3xl"
+                    color={colors.white}
+                  />
+                </Block>
               </Block>
-            </Block>
+            </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('FAQ')}>
               <Block marginHorizontal={sizes.sm}>
