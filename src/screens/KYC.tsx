@@ -1,4 +1,4 @@
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet, Alert} from 'react-native';
 import React, {useCallback} from 'react';
 import {Text, Card, Block, Button} from '../components';
 import {useTheme} from '../hooks';
@@ -22,7 +22,6 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Timeline from 'react-native-timeline-flatlist';
 
 // KYC 1
-
 interface Information {
   Name: string;
   Father_Name: string;
@@ -292,6 +291,7 @@ export default function KYC() {
       setImage(result.assets[0].uri);
     }
   };
+
   // KYC 2
 
   const {assets, colors, fonts, gradients, sizes} = useTheme();
@@ -444,16 +444,14 @@ export default function KYC() {
             alignItems={'left'}
             alignContent={'left'}
             justifyContent={'left'}>
-            <Button.Group space={2}>
-              <Button
-                primary
-                width={sizes.sm}
-                onPress={() => {
-                  setShowModal_Risk(false);
-                }}>
-                OK
-              </Button>
-            </Button.Group>
+            <Button
+              primary
+              width={sizes.sm}
+              onPress={() => {
+                setShowModal_Risk(false);
+              }}>
+              <Text white>OK</Text>
+            </Button>
           </Modal.Footer>
         </Modal.Content>
       </Modal>
@@ -613,7 +611,7 @@ export default function KYC() {
             </FormControl>
             <Button
               marginTop={sizes.sm}
-              bg={colors.primary}
+              primary
               onPress={() => setStep(2)}
               marginBottom={sizes.xs}>
               <Text white>Continue</Text>
@@ -677,7 +675,7 @@ export default function KYC() {
                 marginHorizontal={sizes.xs}
                 style={{borderWidth: 1}}
                 onPress={showDatePicker}
-                bg={colors.primary}>
+                primary>
                 <Text white>Select Date</Text>
               </Button>
               <DateTimePickerModal
@@ -698,11 +696,15 @@ export default function KYC() {
             </FormControl.Label>
             <View>
               <Button
-                isDisabled={isLifetimeExpiry}
+              isDisabled={isLifetimeExpiry}
                 marginHorizontal={sizes.xs}
                 style={{borderWidth: 1}}
-                onPress={showDatePicker}
-                bg={colors.primary}>
+                onPress={
+                  isLifetimeExpiry == true ? console.log('') : showDatePicker
+                }
+                color={
+                  isLifetimeExpiry == true ? colors.secondary : colors.primary
+                }>
                 <Text white>Select Date</Text>
               </Button>
               <DateTimePickerModal
@@ -719,10 +721,14 @@ export default function KYC() {
             <View>
               <Button
                 isDisabled={isLifetimeExpiry}
-                bg={colors.primary}
+                color={
+                  isLifetimeExpiry == true ? colors.secondary : colors.primary
+                }
                 marginHorizontal={sizes.xs}
                 style={{borderWidth: 1}}
-                onPress={showDatePicker}>
+                onPress={
+                  isLifetimeExpiry == true ? console.log('') : showDatePicker
+                }>
                 <Text white>Select Date</Text>
               </Button>
               <DateTimePickerModal
@@ -813,7 +819,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -822,7 +828,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1007,7 +1013,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1016,7 +1022,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1180,7 +1186,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1189,7 +1195,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1241,7 +1247,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1250,7 +1256,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1333,7 +1339,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1342,7 +1348,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1391,8 +1397,9 @@ export default function KYC() {
               <Button
                 marginHorizontal={sizes.xs}
                 style={{borderWidth: 1}}
+                primary
                 onPress={showDatePicker}>
-                <Text primary>Select Date</Text>
+                <Text white>Select Date</Text>
               </Button>
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
@@ -1409,8 +1416,9 @@ export default function KYC() {
               <Button
                 marginHorizontal={sizes.xs}
                 style={{borderWidth: 1}}
+                primary
                 onPress={showDatePicker}>
-                <Text primary>Select Date</Text>
+                <Text white>Select Date</Text>
               </Button>
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
@@ -1436,7 +1444,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1445,7 +1453,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1573,7 +1581,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1582,7 +1590,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 2)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1756,7 +1764,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 2)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1765,7 +1773,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1851,7 +1859,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1860,7 +1868,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -1955,7 +1963,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -1964,7 +1972,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2161,7 +2169,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -2170,7 +2178,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2218,7 +2226,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -2227,7 +2235,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2463,7 +2471,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -2472,7 +2480,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2713,7 +2721,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -2722,7 +2730,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2856,7 +2864,7 @@ export default function KYC() {
               accessibilityLabel="favorite number"
               value={risk5}
               onChange={(value) => {
-                setRisk5(parseInt(value));
+                setRisk5(value);
               }}>
               <Radio value={1} my={1}>
                 Liquidity Management
@@ -2877,23 +2885,34 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
               </Button>
 
+              {risk4.length > 0
+                ? (risk && risk1 && risk2 && risk3 && risk5) == 0
+                : true}
               <Button
-                isDisabled={
-                  risk4.length > 0
-                    ? (risk && risk1 && risk2 && risk3 && risk5) == 0
-                    : true
-                }
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
-                onPress={() => setStep(step + 1)}
+                primary
+                onPress={() =>
+                  (
+                    risk4.length > 0
+                      ? (risk && risk1 && risk2 && risk3 && risk5) == 0
+                      : true
+                  )
+                    ? Alert.alert('Error', 'Please select all options', [
+                        {
+                          text: 'Close',
+                          style: 'cancel',
+                        },
+                      ])
+                    : setStep(step + 1)
+                }
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
               </Button>
@@ -2950,7 +2969,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -2960,7 +2979,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -2975,50 +2994,50 @@ export default function KYC() {
             <FormControl.Label marginTop={sizes.xs} isRequired>
               DOCUMENT SOURCE OF INCOME SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               NOMINEE CNIC SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               W-9 FORM (US CITIZEN) SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               W-8 FORM (FOR NON-US CITIZEN) SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               BUSINESS/EMPLOYMENT PROOF SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
 
             <FormControl.Label marginTop={sizes.xs} isRequired>
               DIGITAL SIGNATURE SCAN COPY
             </FormControl.Label>
-            <Button bg={colors.white} onPress={pickImage}>
-              <Text primary>Upload Image</Text>
+            <Button primary onPress={pickImage}>
+              <Text white>Upload Image</Text>
             </Button>
             <Block row justify="center">
               <Button
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.secondary}
+                secondary
                 onPress={() => setStep(step - 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Back</Text>
@@ -3028,7 +3047,7 @@ export default function KYC() {
                 width={'45%'}
                 marginHorizontal={sizes.xs}
                 marginTop={sizes.sm}
-                bg={colors.primary}
+                primary
                 onPress={() => setStep(step + 1)}
                 marginBottom={sizes.xs}>
                 <Text white>Next</Text>
@@ -3649,7 +3668,7 @@ export default function KYC() {
               width={'45%'}
               marginHorizontal={sizes.xs}
               marginTop={sizes.s}
-              bg={colors.secondary}
+              secondary
               onPress={() => setStep(step - 1)}
               marginBottom={sizes.xs}>
               <Text white>Back</Text>
