@@ -1,6 +1,6 @@
 import {View, ScrollView, StyleSheet} from 'react-native';
 import React, {useCallback} from 'react';
-import {Text, Card, Block, Button} from '../components';
+import {Text, Card, Block, Input, Button} from '../components';
 import {useTheme} from '../hooks';
 import {useState} from 'react';
 import {Ionicons} from '@expo/vector-icons';
@@ -9,7 +9,6 @@ import {
   CheckIcon,
   FormControl,
   HStack,
-  Input,
   Select,
   Radio,
   Icon,
